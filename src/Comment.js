@@ -1,5 +1,6 @@
 import Reply from "./Reply"
-
+import replysvg from "./images/icon-reply.svg"
+import { useGlobalContext } from "./GlobalContext"
 const Comment = ({
   content,
   score,
@@ -7,13 +8,22 @@ const Comment = ({
   user: { image, username },
   replies,
 }) => {
+  const {
+    image: currentUserImg,
+    username: currentUsername,
+  } = useGlobalContext()
   return (
     <div>
       <div className='p-4 space-y-3 bg-white rounded-lg'>
         <div className='flex items-center space-x-4'>
           <img className='h-8' src={image.png} alt={username} />
           <h1 className='font-bold'>{username}</h1>
-          <p className='text-cl_GrayishBlue font-medium'>{createdAt}</p>
+          {username === currentUsername && (
+            <p className='text-cl_White bg-cl_Moderateblue px-2 text-sm rounded-sm'>
+              you
+            </p>
+          )}
+          <p className='text-cl_GrayishBlue'>{createdAt}</p>
         </div>
         <p className='text-cl_GrayishBlue'>{content}</p>
         <div className='flex justify-between'>

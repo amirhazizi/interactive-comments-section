@@ -1,3 +1,4 @@
+import { useGlobalContext } from "./GlobalContext"
 const Reply = ({
   content,
   createdAt,
@@ -5,12 +6,19 @@ const Reply = ({
   score,
   user: { image, username },
 }) => {
+  const { image: currentUserImg, username: currentUsername } =
+    useGlobalContext()
   return (
     <div className='p-4 space-y-3 bg-white rounded-lg'>
       <div className='flex items-center space-x-4'>
         <img className='h-8' src={image.png} alt={username} />
         <h1 className='font-bold'>{username}</h1>
-        <p className='text-cl_GrayishBlue font-medium'>{createdAt}</p>
+        {username === currentUsername && (
+          <p className='text-cl_White bg-cl_Moderateblue px-2 text-sm rounded-sm'>
+            you
+          </p>
+        )}
+        <p className='text-cl_GrayishBlue'>{createdAt}</p>
       </div>
       <p className='text-cl_GrayishBlue'>
         <span className='font-medium text-cl_Moderateblue'>{`@${replyingTo}`}</span>{" "}
@@ -36,20 +44,26 @@ const Reply = ({
             </svg>
           </button>
         </div>
-        <button className='flex items-center font-medium text-cl_Moderateblue'>
-          <svg
-            className='mr-2'
-            width='14'
-            height='13'
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <path
-              d='M.227 4.316 5.04.16a.657.657 0 0 1 1.085.497v2.189c4.392.05 7.875.93 7.875 5.093 0 1.68-1.082 3.344-2.279 4.214-.373.272-.905-.07-.767-.51 1.24-3.964-.588-5.017-4.829-5.078v2.404c0 .566-.664.86-1.085.496L.227 5.31a.657.657 0 0 1 0-.993Z'
-              fill='#5357B6'
-            />
-          </svg>
-          Reply
-        </button>
+        {username === currentUsername ? (
+          <div>
+            <p>hello</p>
+          </div>
+        ) : (
+          <button className='flex items-center font-medium text-cl_Moderateblue'>
+            <svg
+              className='mr-2'
+              width='14'
+              height='13'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M.227 4.316 5.04.16a.657.657 0 0 1 1.085.497v2.189c4.392.05 7.875.93 7.875 5.093 0 1.68-1.082 3.344-2.279 4.214-.373.272-.905-.07-.767-.51 1.24-3.964-.588-5.017-4.829-5.078v2.404c0 .566-.664.86-1.085.496L.227 5.31a.657.657 0 0 1 0-.993Z'
+                fill='#5357B6'
+              />
+            </svg>
+            Reply
+          </button>
+        )}
       </div>
     </div>
   )

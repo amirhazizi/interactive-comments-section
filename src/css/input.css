@@ -24,6 +24,10 @@ body {
     font-size: 16px;
 }
 
+textarea {
+    resize: none;
+}
+
 /* actual css */
 main>div {
     width: min(90vw, 1240px);

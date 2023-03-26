@@ -4,7 +4,8 @@ import Comment from "./Comment"
 import { useGlobalContext } from "./GlobalContext"
 function App() {
   const {
-    currentUser: { image: currentUserImg, username: currentUsername },
+    image: currentUserImg,
+    username: currentUsername,
     comments,
   } = useGlobalContext()
 

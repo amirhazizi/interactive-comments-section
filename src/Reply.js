@@ -1,14 +1,18 @@
 import { useGlobalContext } from "./GlobalContext"
 import { ReplyIcon, MinusIcon, PlusIcon, EditIcon, DeleteIcon } from "./Icons"
 const Reply = ({
+  id,
   content,
   createdAt,
   replyingTo,
   score,
   user: { image, username },
+  commentID,
 }) => {
   const {
-    currentUser: { image: currentUserImg, username: currentUsername },
+    image: currentUserImg,
+    username: currentUsername,
+    updateScore,
   } = useGlobalContext()
   return (
     <div className='p-4 space-y-3 bg-white rounded-lg'>
@@ -28,11 +32,19 @@ const Reply = ({
       </p>
       <div className='flex justify-between'>
         <div className='flex space-x-4 rounded-lg bg-cl_Verylightgray w-fit p-3 py-2 text-cl_Lightgrayishblue'>
-          <button>
+          <button
+            onClick={() => {
+              updateScore(score + 1, commentID, id)
+            }}
+          >
             <PlusIcon />
           </button>
           <p className='font-medium text-cl_Moderateblue px-px'>{score}</p>
-          <button>
+          <button
+            onClick={() => {
+              updateScore(score - 1, commentID, id)
+            }}
+          >
             <MinusIcon />
           </button>
         </div>

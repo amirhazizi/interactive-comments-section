@@ -25,8 +25,23 @@ const AppProvider = ({ children }) => {
     })
     setComments(newComments)
   }
+  const addComment = (text) => {
+    const newComment = {
+      id: new Date().getTime().toString(),
+      content: text,
+      createdAt: "today",
+      replies: [],
+      score: 0,
+      user: {
+        ...currentUser,
+      },
+    }
+    setComments([...comments, newComment])
+  }
   return (
-    <AppContext.Provider value={{ ...currentUser, comments, updateScore }}>
+    <AppContext.Provider
+      value={{ ...currentUser, comments, updateScore, addComment }}
+    >
       {children}
     </AppContext.Provider>
   )

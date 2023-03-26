@@ -7,7 +7,16 @@ function App() {
     image: currentUserImg,
     username: currentUsername,
     comments,
+    addComment,
   } = useGlobalContext()
+  const [message, setMessage] = useState("")
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (message) {
+      console.log("ok")
+      addComment(message)
+    }
+  }
 
   return (
     <main className='bg-cl_Verylightgray'>
@@ -15,12 +24,19 @@ function App() {
         {comments.map((comment) => {
           return <Comment key={comment.id} {...comment} />
         })}
-        <form className='p-4 bg-cl_White rounded-lg space-y-4'>
+        <form
+          onSubmit={(e) => {
+            handleSubmit(e)
+          }}
+          className='p-4 bg-cl_White rounded-lg space-y-4'
+        >
           <textarea
             className='rounded-lg p-3 border-2 w-full'
             cols='30'
             rows='3'
+            value={message}
             placeholder='Add a comment...'
+            onChange={(e) => setMessage(e.target.value)}
           ></textarea>
           <div className='flex justify-between items-center'>
             <img

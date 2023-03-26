@@ -10,8 +10,7 @@ const Comment = ({
   replies,
 }) => {
   const {
-    image: currentUserImg,
-    username: currentUsername,
+    currentUser: { image: currentUserImg, username: currentUsername },
   } = useGlobalContext()
   return (
     <div>

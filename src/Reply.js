@@ -7,8 +7,9 @@ const Reply = ({
   score,
   user: { image, username },
 }) => {
-  const { image: currentUserImg, username: currentUsername } =
-    useGlobalContext()
+  const {
+    currentUser: { image: currentUserImg, username: currentUsername },
+  } = useGlobalContext()
   return (
     <div className='p-4 space-y-3 bg-white rounded-lg'>
       <div className='flex items-center space-x-4'>

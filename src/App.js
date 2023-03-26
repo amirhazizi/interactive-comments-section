@@ -3,9 +3,11 @@ import data from "./data"
 import Comment from "./Comment"
 import { useGlobalContext } from "./GlobalContext"
 function App() {
-  const { image: currentUserImg, username: currentUsername } =
-    useGlobalContext()
-  const [comments, setComments] = useState(data.comments)
+  const {
+    currentUser: { image: currentUserImg, username: currentUsername },
+    comments,
+  } = useGlobalContext()
+
   return (
     <main className='bg-cl_Verylightgray'>
       <div className=' grid gap-4 mx-auto py-10'>

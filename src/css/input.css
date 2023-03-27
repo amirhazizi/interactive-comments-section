@@ -33,7 +33,7 @@ textarea {
 
 /* actual css */
 main>div {
-    width: min(90vw, 768px);
+    width: min(90vw, 730px);
 }
 
 /* custom webscroll */

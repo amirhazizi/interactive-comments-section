@@ -27,7 +27,7 @@ function App() {
       }`}
     >
       {showModal && <Modal />}
-      <div className=' grid gap-4 mx-auto py-10'>
+      <div className=' grid gap-4 mx-auto py-10 md:py-14'>
         {comments.map((comment) => {
           return <Comment key={comment.id} {...comment} />
         })}
@@ -35,8 +35,13 @@ function App() {
           onSubmit={(e) => {
             handleSubmit(e)
           }}
-          className='p-4 bg-cl_White rounded-lg space-y-4'
+          className='p-4 bg-cl_White rounded-lg space-y-4 md:flex md:space-y-0 md:space-x-4 md:p-6'
         >
+          <img
+            className='h-8 hidden md:block md:mt-2'
+            src={currentUserImg.png}
+            alt={currentUsername}
+          />
           <textarea
             className='rounded-lg p-3 border-2 w-full'
             cols='30'
@@ -45,9 +50,9 @@ function App() {
             placeholder='Add a comment...'
             onChange={(e) => setMessage(e.target.value)}
           ></textarea>
-          <div className='flex justify-between items-center'>
+          <div className='flex justify-between items-center md:hidden'>
             <img
-              className='h-8'
+              className=' h-8'
               src={currentUserImg.png}
               alt={currentUsername}
             />
@@ -58,6 +63,12 @@ function App() {
               send
             </button>
           </div>
+          <button
+            className='hidden md:block uppercase p-3 w-28 rounded-lg bg-cl_Moderateblue text-cl_White md:self-start'
+            type='submit'
+          >
+            send
+          </button>
         </form>
       </div>
     </main>

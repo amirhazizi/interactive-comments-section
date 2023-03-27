@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react"
 import data from "./data"
 import Comment from "./Comment"
 import { useGlobalContext } from "./GlobalContext"
+import Modal from "./Modal"
 function App() {
   const {
     image: currentUserImg,
     username: currentUsername,
     comments,
     addComment,
+    showModal,
   } = useGlobalContext()
   const [message, setMessage] = useState("")
   const handleSubmit = (e) => {
@@ -19,7 +21,12 @@ function App() {
   }
 
   return (
-    <main className='bg-cl_Verylightgray'>
+    <main
+      className={`bg-cl_Verylightgray ${
+        showModal && "overflow-hidden h-screen"
+      }`}
+    >
+      {showModal && <Modal />}
       <div className=' grid gap-4 mx-auto py-10'>
         {comments.map((comment) => {
           return <Comment key={comment.id} {...comment} />

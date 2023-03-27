@@ -4,6 +4,7 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(data.currentUser)
   const [comments, setComments] = useState(data.comments)
+  const [showModal, setShowModal] = useState(false)
 
   const updateScore = (newScore, commentID, replayID = -1) => {
     let value = newScore
@@ -60,7 +61,15 @@ const AppProvider = ({ children }) => {
   }
   return (
     <AppContext.Provider
-      value={{ ...currentUser, comments, updateScore, addComment, addReply }}
+      value={{
+        ...currentUser,
+        comments,
+        updateScore,
+        addComment,
+        addReply,
+        showModal,
+        setShowModal,
+      }}
     >
       {children}
     </AppContext.Provider>

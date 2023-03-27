@@ -169,7 +169,13 @@ const Comment = ({
             rows='3'
             value={replyText}
             placeholder='Add a comment...'
-            onChange={(e) => setReplyText(e.target.value)}
+            onChange={(e) =>
+              setReplyText((prevState) => {
+                if (e.target.value.length <= username.length + 1)
+                  return `@${username} `
+                return e.target.value
+              })
+            }
           ></textarea>
           <div className='flex justify-between items-center'>
             <img

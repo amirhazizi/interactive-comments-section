@@ -68,13 +68,12 @@ const AppProvider = ({ children }) => {
   }
   const removeComment = () => {
     const { commentID, replyID } = deleteComment
+    let newComments = []
     if (replyID === -1) {
-      const newComments = comments.filter((comment) => comment.id !== commentID)
-      setComments(newComments)
+      newComments = comments.filter((comment) => comment.id !== commentID)
     } else {
-      const newComments = comments.map((comment) => {
+      newComments = comments.map((comment) => {
         if (comment.id === commentID) {
-          console.log(comment.replies)
           const newReplies = comment.replies.filter(
             (reply) => reply.id !== replyID
           )
@@ -82,20 +81,34 @@ const AppProvider = ({ children }) => {
         }
         return comment
       })
-      setComments(newComments)
     }
+    setComments(newComments)
   }
   const editOldComment = (content) => {
     const { commentID, replyID } = updateComment
+    let newComments = []
     if (replyID === -1) {
-      const newCommants = comments.map((comment) => {
+      newComments = comments.map((comment) => {
         if (comment.id === commentID) {
           return { ...comment, content }
         }
         return comment
       })
-      setComments(newCommants)
+    } else {
+      newComments = comments.map((comment) => {
+        if (comment.id === commentID) {
+          const newReplies = comment.replies.map((reply) => {
+            if (reply.id === replyID) {
+              return { ...reply, content }
+            }
+            return reply
+          })
+          return { ...comment, replies: newReplies }
+        }
+        return comment
+      })
     }
+    setComments(newComments)
   }
   return (
     <AppContext.Provider

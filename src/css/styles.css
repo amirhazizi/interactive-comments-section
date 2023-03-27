@@ -572,6 +572,22 @@ video {
   margin-top: 1.25rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
 .flex {
   display: flex;
 }
@@ -612,6 +628,10 @@ video {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.gap-y-4 {
+  row-gap: 1rem;
 }
 
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
@@ -698,6 +718,10 @@ video {
 
 .pl-4 {
   padding-left: 1rem;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
 }
 
 .text-sm {

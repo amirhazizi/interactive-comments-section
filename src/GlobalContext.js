@@ -1,5 +1,5 @@
-import data from "./data"
 import React, { useState } from "react"
+import data from "./data"
 const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(data.currentUser)
@@ -25,10 +25,10 @@ const AppProvider = ({ children }) => {
     })
     setComments(newComments)
   }
-  const addComment = (text) => {
+  const addComment = (content) => {
     const newComment = {
       id: new Date().getTime().toString(),
-      content: text,
+      content,
       createdAt: "today",
       replies: [],
       score: 0,
@@ -38,9 +38,29 @@ const AppProvider = ({ children }) => {
     }
     setComments([...comments, newComment])
   }
+  const addReply = (content, commentID, replyingTo) => {
+    const newReply = {
+      id: new Date().getTime().toString(),
+      content,
+      createdAt: "today",
+      replies: [],
+      score: 0,
+      replyingTo,
+      user: {
+        ...currentUser,
+      },
+    }
+    const newComments = comments.map((comment) => {
+      if (comment.id === commentID) {
+        comment.replies = [...comment.replies, newReply]
+      }
+      return comment
+    })
+    setComments(newComments)
+  }
   return (
     <AppContext.Provider
-      value={{ ...currentUser, comments, updateScore, addComment }}
+      value={{ ...currentUser, comments, updateScore, addComment, addReply }}
     >
       {children}
     </AppContext.Provider>

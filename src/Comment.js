@@ -16,6 +16,7 @@ const Comment = ({
     updateScore,
     addReply,
     setShowModal,
+    setDeleteComment,
   } = useGlobalContext()
   const [isReply, setIsReply] = useState(false)
   const [replyText, setReplyText] = useState(`@${username} `)
@@ -64,7 +65,10 @@ const Comment = ({
           {username === currentUsername ? (
             <div className='flex items-center gap-4'>
               <button
-                onClick={() => setShowModal(true)}
+                onClick={() => {
+                  setShowModal(true)
+                  setDeleteComment(id)
+                }}
                 className='flex items-center gap-2 font-medium text-cl_SoftRed'
               >
                 <DeleteIcon />

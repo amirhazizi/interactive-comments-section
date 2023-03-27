@@ -5,7 +5,7 @@ const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(data.currentUser)
   const [comments, setComments] = useState(data.comments)
   const [showModal, setShowModal] = useState(false)
-
+  const [deleteComment, setDeleteComment] = useState(-1)
   const updateScore = (newScore, commentID, replayID = -1) => {
     let value = newScore
     if (value < 0) value = 0
@@ -59,6 +59,12 @@ const AppProvider = ({ children }) => {
     })
     setComments(newComments)
   }
+  const removeComment = () => {
+    const newComments = comments.filter(
+      (comment) => comment.id !== deleteComment
+    )
+    setComments(newComments)
+  }
   return (
     <AppContext.Provider
       value={{
@@ -69,6 +75,8 @@ const AppProvider = ({ children }) => {
         addReply,
         showModal,
         setShowModal,
+        removeComment,
+        setDeleteComment,
       }}
     >
       {children}

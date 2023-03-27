@@ -17,6 +17,7 @@ function App() {
     if (message) {
       console.log("ok")
       addComment(message)
+      setMessage("")
     }
   }
 

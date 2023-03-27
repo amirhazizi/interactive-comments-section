@@ -16,6 +16,7 @@ const Reply = ({
     updateScore,
     addReply,
     setShowModal,
+    setDeleteComment,
   } = useGlobalContext()
   const [isReply, setIsReply] = useState(false)
   const [replyText, setReplyText] = useState(`@${username} `)
@@ -66,7 +67,10 @@ const Reply = ({
           {username === currentUsername ? (
             <div className='flex items-center gap-4'>
               <button
-                onClick={() => setShowModal(true)}
+                onClick={() => {
+                  setDeleteComment({ commentID, replyID: id })
+                  setShowModal(true)
+                }}
                 className='flex items-center gap-2 font-medium text-cl_SoftRed'
               >
                 <DeleteIcon />
@@ -115,7 +119,7 @@ const Reply = ({
               className='uppercase p-3 w-24 rounded-lg bg-cl_Moderateblue text-cl_White'
               type='submit'
             >
-              send
+              reply
             </button>
           </div>
         </form>

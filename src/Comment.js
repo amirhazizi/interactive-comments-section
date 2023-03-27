@@ -67,7 +67,7 @@ const Comment = ({
               <button
                 onClick={() => {
                   setShowModal(true)
-                  setDeleteComment(id)
+                  setDeleteComment({ commentID: id, replyID: -1 })
                 }}
                 className='flex items-center gap-2 font-medium text-cl_SoftRed'
               >
@@ -117,7 +117,7 @@ const Comment = ({
               className='uppercase p-3 w-24 rounded-lg bg-cl_Moderateblue text-cl_White'
               type='submit'
             >
-              send
+              reply
             </button>
           </div>
         </form>

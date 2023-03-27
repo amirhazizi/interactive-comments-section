@@ -5,7 +5,10 @@ const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(data.currentUser)
   const [comments, setComments] = useState(data.comments)
   const [showModal, setShowModal] = useState(false)
-  const [deleteComment, setDeleteComment] = useState(-1)
+  const [deleteComment, setDeleteComment] = useState({
+    commentID: -1,
+    replyID: -1,
+  })
   const updateScore = (newScore, commentID, replayID = -1) => {
     let value = newScore
     if (value < 0) value = 0
@@ -60,10 +63,25 @@ const AppProvider = ({ children }) => {
     setComments(newComments)
   }
   const removeComment = () => {
-    const newComments = comments.filter(
-      (comment) => comment.id !== deleteComment
-    )
-    setComments(newComments)
+    const { commentID, replyID } = deleteComment
+    console.log(deleteComment)
+
+    if (replyID === -1) {
+      const newComments = comments.filter((comment) => comment.id !== commentID)
+      setComments(newComments)
+    } else {
+      const newComments = comments.map((comment) => {
+        if (comment.id === commentID) {
+          console.log(comment.replies)
+          const newReplies = comment.replies.filter(
+            (reply) => reply.id !== replyID
+          )
+          return { ...comment, replies: newReplies }
+        }
+        return comment
+      })
+      setComments(newComments)
+    }
   }
   return (
     <AppContext.Provider

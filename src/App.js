@@ -15,7 +15,6 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (message) {
-      console.log("ok")
       addComment(message)
       setMessage("")
     }

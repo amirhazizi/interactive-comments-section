@@ -68,7 +68,7 @@ const Comment = ({
         </div>
       </div>
       {replies.length > 0 && (
-        <div className='pl-4 my-5 space-y-4 border-l-2'>
+        <div className='pl-4 mt-5 mb-1 space-y-4 border-l-2'>
           {replies.map((reply) => {
             return <Reply key={reply.id} {...reply} commentID={id} />
           })}

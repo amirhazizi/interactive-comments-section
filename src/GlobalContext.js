@@ -9,6 +9,10 @@ const AppProvider = ({ children }) => {
     commentID: -1,
     replyID: -1,
   })
+  const [updateComment, setUpdateComment] = useState({
+    commentID: -1,
+    replyID: -1,
+  })
   const updateScore = (newScore, commentID, replayID = -1) => {
     let value = newScore
     if (value < 0) value = 0
@@ -64,8 +68,6 @@ const AppProvider = ({ children }) => {
   }
   const removeComment = () => {
     const { commentID, replyID } = deleteComment
-    console.log(deleteComment)
-
     if (replyID === -1) {
       const newComments = comments.filter((comment) => comment.id !== commentID)
       setComments(newComments)
@@ -83,6 +85,18 @@ const AppProvider = ({ children }) => {
       setComments(newComments)
     }
   }
+  const editOldComment = (content) => {
+    const { commentID, replyID } = updateComment
+    if (replyID === -1) {
+      const newCommants = comments.map((comment) => {
+        if (comment.id === commentID) {
+          return { ...comment, content }
+        }
+        return comment
+      })
+      setComments(newCommants)
+    }
+  }
   return (
     <AppContext.Provider
       value={{
@@ -95,6 +109,8 @@ const AppProvider = ({ children }) => {
         setShowModal,
         removeComment,
         setDeleteComment,
+        editOldComment,
+        setUpdateComment,
       }}
     >
       {children}

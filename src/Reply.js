@@ -26,7 +26,7 @@ const Reply = ({
     if (replyingText) {
       addReply(replyingText, commentID, username)
       setIsReply(false)
-      setReplyText("")
+      setReplyText(`@${username} `)
     }
   }
   return (

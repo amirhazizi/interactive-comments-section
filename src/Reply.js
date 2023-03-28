@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useGlobalContext } from "./GlobalContext"
 import { ReplyIcon, MinusIcon, PlusIcon, EditIcon, DeleteIcon } from "./Icons"
+import calculateTime from "./calculateTime"
 const Reply = ({
   id,
   content,
@@ -26,6 +27,7 @@ const Reply = ({
   const [isEdit, setIsEdit] = useState(false)
   const [editReplyID, setEditReplyID] = useState(-1)
   const [editReply, setEditReply] = useState(`@${replyingTo} ${content}`)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const replyingText = replyText.slice(username.length + 2)
@@ -34,8 +36,9 @@ const Reply = ({
       setIsReply(false)
       setReplyText(`@${username} `)
       notificationDispatch({ type: "COMMENT ADDED" })
+    } else {
+      notificationDispatch({ type: "EMPTY INPUT" })
     }
-    if (!replyingText) notificationDispatch({ type: "EMPTY INPUT" })
   }
   const handleEditSubmit = (e) => {
     e.preventDefault()
@@ -45,8 +48,9 @@ const Reply = ({
       setIsEdit(false)
       setEditReplyID(-1)
       notificationDispatch({ type: "COMMENT EDITED" })
+    } else {
+      notificationDispatch({ type: "EMPTY INPUT" })
     }
-    if (!replyingText) notificationDispatch({ type: "EMPTY INPUT" })
   }
   return (
     <div className='space-y-4'>
@@ -77,7 +81,7 @@ const Reply = ({
                 you
               </p>
             )}
-            <p className='text-cl_GrayishBlue'>{createdAt}</p>
+            <p className='text-cl_GrayishBlue'>{calculateTime(createdAt)}</p>
             {username === currentUsername ? (
               <div className='hidden md:flex items-center gap-x-4  md:gap-x-7 absolute -right-1 top-1'>
                 <button

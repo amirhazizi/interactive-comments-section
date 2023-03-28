@@ -4,7 +4,7 @@ import Comment from "./Comment"
 import { useGlobalContext } from "./GlobalContext"
 import Modal from "./Modal"
 import Notification from "./Notofication"
-// import reducer from "./Reducer"
+
 function App() {
   const {
     image: currentUserImg,
@@ -15,14 +15,16 @@ function App() {
     notificationDispatch,
   } = useGlobalContext()
   const [message, setMessage] = useState("")
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (message) {
       addComment(message)
       setMessage("")
       notificationDispatch({ type: "COMMENT ADDED" })
+    } else {
+      notificationDispatch({ type: "EMPTY INPUT" })
     }
-    if (!message) notificationDispatch({ type: "EMPTY INPUT" })
   }
 
   return (

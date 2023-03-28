@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Reply from "./Reply"
 import { ReplyIcon, MinusIcon, PlusIcon, EditIcon, DeleteIcon } from "./Icons"
 import { useGlobalContext } from "./GlobalContext"
+import calculateTime from "./calculateTime"
 const Comment = ({
   id,
   content,
@@ -26,26 +27,31 @@ const Comment = ({
   const [isEdit, setIsEdit] = useState(false)
   const [editCommentID, setEditCommentID] = useState(-1)
   const [editComment, setEditComment] = useState(content)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const replyingText = replyText.slice(username.length + 2)
+
     if (replyingText) {
       addReply(replyingText, id, username)
       setIsReply(false)
       setReplyText(`@${username} `)
       notificationDispatch({ type: "COMMENT ADDED" })
+    } else {
+      notificationDispatch({ type: "EMPTY INPUT" })
     }
-    if (!replyingText) notificationDispatch({ type: "EMPTY INPUT" })
   }
   const handleEditSubmit = (e) => {
     e.preventDefault()
+
     if (editComment) {
       editOldComment(editComment)
       setIsEdit(false)
       setEditCommentID(-1)
       notificationDispatch({ type: "COMMENT EDITED" })
+    } else {
+      notificationDispatch({ type: "EMPTY INPUT" })
     }
-    if (!editComment) notificationDispatch({ type: "EMPTY INPUT" })
   }
 
   return (
@@ -77,7 +83,7 @@ const Comment = ({
                 you
               </p>
             )}
-            <p className='text-cl_GrayishBlue'>{createdAt}</p>
+            <p className='text-cl_GrayishBlue'>{calculateTime(createdAt)}</p>
             {username === currentUsername ? (
               <div className='invisible md:visible flex items-center gap-x-4 md:gap-x-7 md:absolute md:-right-1 md:top-1'>
                 <button

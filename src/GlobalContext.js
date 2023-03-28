@@ -44,10 +44,11 @@ const AppProvider = ({ children }) => {
     setComments(newComments)
   }
   const addComment = (content) => {
+    const date = new Date().getTime()
     const newComment = {
-      id: new Date().getTime().toString(),
+      id: date.toString(),
       content,
-      createdAt: "today",
+      createdAt: date,
       replies: [],
       score: 0,
       user: {
@@ -57,10 +58,11 @@ const AppProvider = ({ children }) => {
     setComments([...comments, newComment])
   }
   const addReply = (content, commentID, replyingTo) => {
+    const date = new Date().getTime()
     const newReply = {
-      id: new Date().getTime().toString(),
+      id: date.toString(),
       content,
-      createdAt: "today",
+      createdAt: date,
       replies: [],
       score: 0,
       replyingTo,

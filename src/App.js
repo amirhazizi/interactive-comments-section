@@ -3,6 +3,8 @@ import data from "./data"
 import Comment from "./Comment"
 import { useGlobalContext } from "./GlobalContext"
 import Modal from "./Modal"
+import Notification from "./Notofication"
+// import reducer from "./Reducer"
 function App() {
   const {
     image: currentUserImg,
@@ -10,6 +12,8 @@ function App() {
     comments,
     addComment,
     showModal,
+    notificationState,
+    dispatch,
   } = useGlobalContext()
   const [message, setMessage] = useState("")
   const handleSubmit = (e) => {
@@ -18,6 +22,7 @@ function App() {
       addComment(message)
       setMessage("")
     }
+    if (!message) dispatch({ type: "EMPTY INPUT" })
   }
 
   return (
@@ -26,6 +31,7 @@ function App() {
         showModal && "overflow-hidden h-screen"
       }`}
     >
+      {notificationState.isShow && <Notification />}
       {showModal && <Modal />}
       <div className=' grid gap-4 mx-auto py-10 md:py-14'>
         {comments.map((comment) => {

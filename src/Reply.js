@@ -19,6 +19,7 @@ const Reply = ({
     setDeleteComment,
     setUpdateComment,
     editOldComment,
+    dispatch,
   } = useGlobalContext()
   const [isReply, setIsReply] = useState(false)
   const [replyText, setReplyText] = useState(`@${username} `)
@@ -33,6 +34,7 @@ const Reply = ({
       setIsReply(false)
       setReplyText(`@${username} `)
     }
+    if (!replyingText) dispatch({ type: "EMPTY INPUT" })
   }
   const handleEditSubmit = (e) => {
     e.preventDefault()
@@ -42,6 +44,7 @@ const Reply = ({
       setIsEdit(false)
       setEditReplyID(-1)
     }
+    if (!replyingText) dispatch({ type: "EMPTY INPUT" })
   }
   return (
     <div className='space-y-4'>
@@ -49,7 +52,7 @@ const Reply = ({
         <div className='hidden md:flex flex-col space-y-3 rounded-lg bg-cl_Verylightgray p-3 py-2 text-cl_Lightgrayishblue items-center self-start w-fit'>
           <button
             onClick={() => {
-              updateScore(score + 1, id)
+              updateScore(score + 1, commentID, id)
             }}
           >
             <PlusIcon />
@@ -57,13 +60,13 @@ const Reply = ({
           <p className='font-medium text-cl_Moderateblue px-px'>{score}</p>
           <button
             onClick={() => {
-              updateScore(score - 1, id)
+              updateScore(score - 1, commentID, id)
             }}
           >
             <MinusIcon />
           </button>
         </div>
-        <div className='space-y-2 md:w-full'>
+        <div className='space-y-4 md:w-full'>
           <div className='flex items-center space-x-4  md:relative '>
             <img className='h-8' src={image.png} alt={username} />
             <h1 className='font-bold'>{username}</h1>

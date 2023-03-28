@@ -19,6 +19,7 @@ const Comment = ({
     setDeleteComment,
     setUpdateComment,
     editOldComment,
+    dispatch,
   } = useGlobalContext()
   const [isReply, setIsReply] = useState(false)
   const [replyText, setReplyText] = useState(`@${username} `)
@@ -33,6 +34,7 @@ const Comment = ({
       setIsReply(false)
       setReplyText(`@${username} `)
     }
+    if (!replyingText) dispatch({ type: "EMPTY INPUT" })
   }
   const handleEditSubmit = (e) => {
     e.preventDefault()
@@ -41,6 +43,7 @@ const Comment = ({
       setIsEdit(false)
       setEditCommentID(-1)
     }
+    if (!editComment) dispatch({ type: "EMPTY INPUT" })
   }
 
   return (
@@ -63,7 +66,7 @@ const Comment = ({
             <MinusIcon />
           </button>
         </div>
-        <div className='md:w-full'>
+        <div className='space-y-4 md:w-full'>
           <div className='flex items-center gap-x-3 w-full md:relative '>
             <img className='h-8' src={image.png} alt={username} />
             <h1 className='font-bold'>{username}</h1>

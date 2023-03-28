@@ -45,3 +45,13 @@ main>div {
     background: var(--cl-Light-grayish-blue);
     border-radius: 50rem;
 }
+
+/* Notification class */
+.notification {
+    transform: translate(50%, 0%);
+    transition: all 250ms ease-in-out;
+}
+
+.show-notification {
+    transform: translate(50%, 0);
+}

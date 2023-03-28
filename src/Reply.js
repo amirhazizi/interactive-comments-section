@@ -27,7 +27,18 @@ const Reply = ({
   const [isEdit, setIsEdit] = useState(false)
   const [editReplyID, setEditReplyID] = useState(-1)
   const [editReply, setEditReply] = useState(`@${replyingTo} ${content}`)
-
+  const [tempScore, setTempScore] = useState(score)
+  const changeScore = (value, type) => {
+    console.log(tempScore)
+    if (value === tempScore) {
+      if (type === "plus") updateScore(tempScore + 1, commentID, id)
+      else updateScore(tempScore - 1, commentID, id)
+    }
+    if (value === tempScore + 1 && type === "minus")
+      updateScore(tempScore - 2, commentID, id)
+    if (value === tempScore - 1 && type === "plus")
+      updateScore(tempScore + 2, commentID, id)
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
     const replyingText = replyText.slice(username.length + 2)
@@ -40,6 +51,7 @@ const Reply = ({
       notificationDispatch({ type: "EMPTY INPUT" })
     }
   }
+
   const handleEditSubmit = (e) => {
     e.preventDefault()
     const replyingText = editReply.slice(replyingTo.length + 2)
@@ -54,11 +66,11 @@ const Reply = ({
   }
   return (
     <div className='space-y-4'>
-      <div className='p-4 bg-white rounded-lg md:flex md:gap-x-6  md:p-6'>
-        <div className='hidden md:flex flex-col space-y-3 rounded-lg bg-cl_Verylightgray p-3 py-2 text-cl_Lightgrayishblue items-center self-start w-fit'>
+      <div className='p-4 bg-white rounded-lg md:flex md:gap-x-6 md:p-6'>
+        <div className='hidden md:flex flex-col space-y-3 rounded-lg bg-cl_Verylightgray p-3 py-2 text-cl_Lightgrayishblue items-center self-start  w-16'>
           <button
             onClick={() => {
-              updateScore(score + 1, commentID, id)
+              changeScore(tempScore, "plus")
             }}
           >
             <PlusIcon />
@@ -66,13 +78,13 @@ const Reply = ({
           <p className='font-medium text-cl_Moderateblue px-px'>{score}</p>
           <button
             onClick={() => {
-              updateScore(score - 1, commentID, id)
+              changeScore(tempScore, "minus")
             }}
           >
             <MinusIcon />
           </button>
         </div>
-        <div className='space-y-4 md:w-full'>
+        <div className='space-y-4'>
           <div className='flex items-center space-x-4  md:relative '>
             <img className='h-8' src={image.png} alt={username} />
             <h1 className='font-bold'>{username}</h1>

@@ -28,11 +28,7 @@ function App() {
   }
 
   return (
-    <main
-      className={`bg-cl_Verylightgray ${
-        showModal && "overflow-hidden h-screen"
-      }`}
-    >
+    <main className='bg-cl_Verylightgray '>
       <Notification />
       {showModal && <Modal />}
       <div className=' grid gap-4 mx-auto py-10 md:py-14'>

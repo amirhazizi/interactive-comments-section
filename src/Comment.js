@@ -27,7 +27,19 @@ const Comment = ({
   const [isEdit, setIsEdit] = useState(false)
   const [editCommentID, setEditCommentID] = useState(-1)
   const [editComment, setEditComment] = useState(content)
+  const [tempScore, setTempScore] = useState(score)
 
+  const changeScore = (value, type) => {
+    console.log(tempScore)
+    if (value === tempScore) {
+      if (type === "plus") updateScore(tempScore + 1, id)
+      else updateScore(tempScore - 1, id)
+    }
+    if (value === tempScore + 1 && type === "minus")
+      updateScore(tempScore - 2, id)
+    if (value === tempScore - 1 && type === "plus")
+      updateScore(tempScore + 2, id)
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
     const replyingText = replyText.slice(username.length + 2)
@@ -57,10 +69,10 @@ const Comment = ({
   return (
     <div>
       <div className='p-4 bg-white rounded-lg md:flex md:gap-x-6  md:p-6'>
-        <div className='hidden md:flex flex-col space-y-3 rounded-lg bg-cl_Verylightgray w-fit p-3 py-2 text-cl_Lightgrayishblue items-center self-start'>
+        <div className='hidden md:flex flex-col space-y-3 rounded-lg bg-cl_Verylightgray w-11 p-3 py-2 text-cl_Lightgrayishblue items-center self-start'>
           <button
             onClick={() => {
-              updateScore(score + 1, id)
+              changeScore(tempScore, "plus")
             }}
           >
             <PlusIcon />
@@ -68,7 +80,7 @@ const Comment = ({
           <p className='font-medium text-cl_Moderateblue px-px'>{score}</p>
           <button
             onClick={() => {
-              updateScore(score - 1, id)
+              changeScore(tempScore, "minus")
             }}
           >
             <MinusIcon />
@@ -131,7 +143,7 @@ const Comment = ({
                 onChange={(e) => setEditComment(e.target.value)}
               ></textarea>
               <div className='flex justify-between'>
-                <div className='flex space-x-4 rounded-lg bg-cl_Verylightgray w-fit p-3 py-2 text-cl_Lightgrayishblue items-center  md:hidden'>
+                <div className='flex space-x-4 rounded-lg bg-cl_Verylightgray  w-fit p-3 py-2 text-cl_Lightgrayishblue items-center  md:hidden'>
                   <button
                     onClick={() => {
                       updateScore(score + 1, id)

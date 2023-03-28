@@ -1,9 +1,12 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import data from "./data"
 const AppContext = React.createContext()
+const defaultData =
+  JSON.parse(localStorage.getItem("interactive-comment-section")) ||
+  data.comments
 const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(data.currentUser)
-  const [comments, setComments] = useState(data.comments)
+  const [comments, setComments] = useState(defaultData)
   const [showModal, setShowModal] = useState(false)
   const [deleteComment, setDeleteComment] = useState({
     commentID: -1,
@@ -110,6 +113,12 @@ const AppProvider = ({ children }) => {
     }
     setComments(newComments)
   }
+  useEffect(() => {
+    localStorage.setItem(
+      "interactive-comment-section",
+      JSON.stringify(comments)
+    )
+  }, [comments])
   return (
     <AppContext.Provider
       value={{

@@ -2,18 +2,21 @@ import React, { useEffect } from "react"
 import { useGlobalContext } from "./GlobalContext"
 
 const Notification = () => {
-  const { notificationState, dispatch } = useGlobalContext()
+  const { notificationState, notificationDispatch } = useGlobalContext()
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      dispatch({ type: "DEFAULT" })
-    }, 3000)
+      notificationDispatch({ type: "DEFAULT" })
+    }, 1500)
     return () => clearTimeout(timeOut)
-  }, [])
+  }, [notificationState])
+  const { content, isShow, type } = notificationState
   return (
     <div
-      className={`fixed top-0 left-1/2 text-white -translate-x-1/2 rounded-b-xl w-fit p-2 z-10 ${notificationState.type} `}
+      className={`notification fixed top-0 left-1/2 text-white rounded-b-xl w-fit p-2 px-4 z-10 ${type} ${
+        isShow && "show-notification"
+      } `}
     >
-      {notificationState.content}
+      {content}
     </div>
   )
 }

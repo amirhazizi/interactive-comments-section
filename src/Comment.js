@@ -19,7 +19,7 @@ const Comment = ({
     setDeleteComment,
     setUpdateComment,
     editOldComment,
-    dispatch,
+    notificationDispatch,
   } = useGlobalContext()
   const [isReply, setIsReply] = useState(false)
   const [replyText, setReplyText] = useState(`@${username} `)
@@ -33,8 +33,9 @@ const Comment = ({
       addReply(replyingText, id, username)
       setIsReply(false)
       setReplyText(`@${username} `)
+      notificationDispatch({ type: "COMMENT ADDED" })
     }
-    if (!replyingText) dispatch({ type: "EMPTY INPUT" })
+    if (!replyingText) notificationDispatch({ type: "EMPTY INPUT" })
   }
   const handleEditSubmit = (e) => {
     e.preventDefault()
@@ -42,8 +43,9 @@ const Comment = ({
       editOldComment(editComment)
       setIsEdit(false)
       setEditCommentID(-1)
+      notificationDispatch({ type: "COMMENT EDITED" })
     }
-    if (!editComment) dispatch({ type: "EMPTY INPUT" })
+    if (!editComment) notificationDispatch({ type: "EMPTY INPUT" })
   }
 
   return (

@@ -19,7 +19,7 @@ const Reply = ({
     setDeleteComment,
     setUpdateComment,
     editOldComment,
-    dispatch,
+    notificationDispatch,
   } = useGlobalContext()
   const [isReply, setIsReply] = useState(false)
   const [replyText, setReplyText] = useState(`@${username} `)
@@ -33,8 +33,9 @@ const Reply = ({
       addReply(replyingText, commentID, username)
       setIsReply(false)
       setReplyText(`@${username} `)
+      notificationDispatch({ type: "COMMENT ADDED" })
     }
-    if (!replyingText) dispatch({ type: "EMPTY INPUT" })
+    if (!replyingText) notificationDispatch({ type: "EMPTY INPUT" })
   }
   const handleEditSubmit = (e) => {
     e.preventDefault()
@@ -43,8 +44,9 @@ const Reply = ({
       editOldComment(replyingText)
       setIsEdit(false)
       setEditReplyID(-1)
+      notificationDispatch({ type: "COMMENT EDITED" })
     }
-    if (!replyingText) dispatch({ type: "EMPTY INPUT" })
+    if (!replyingText) notificationDispatch({ type: "EMPTY INPUT" })
   }
   return (
     <div className='space-y-4'>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react"
 import data from "./data"
-import reducer from "./Reducer"
+import notificationReducer from "./notificationReducer"
 const AppContext = React.createContext()
 const defaultData =
   JSON.parse(localStorage.getItem("interactive-comment-section")) ||
@@ -15,7 +15,10 @@ const AppProvider = ({ children }) => {
     commentID: -1,
     replyID: -1,
   })
-  const [notificationState, dispatch] = useReducer(reducer, defaultState)
+  const [notificationState, notificationDispatch] = useReducer(
+    notificationReducer,
+    defaultState
+  )
   const [updateComment, setUpdateComment] = useState({
     commentID: -1,
     replyID: -1,
@@ -139,7 +142,7 @@ const AppProvider = ({ children }) => {
         editOldComment,
         setUpdateComment,
         notificationState,
-        dispatch,
+        notificationDispatch,
       }}
     >
       {children}

@@ -13,7 +13,7 @@ const Notification = () => {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       notificationDispatch({ type: "DEFAULT" })
-    }, 1000)
+    }, 1500)
     return () => clearTimeout(timeOut)
   }, [isShow])
   return (

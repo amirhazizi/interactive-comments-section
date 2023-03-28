@@ -63,8 +63,8 @@ const Reply = ({
             <MinusIcon />
           </button>
         </div>
-        <div className='md:space-y-2 md:w-full'>
-          <div className='flex items-center space-x-4  md:relative'>
+        <div className='space-y-2 md:w-full'>
+          <div className='flex items-center space-x-4  md:relative '>
             <img className='h-8' src={image.png} alt={username} />
             <h1 className='font-bold'>{username}</h1>
             {username === currentUsername && (
@@ -74,13 +74,13 @@ const Reply = ({
             )}
             <p className='text-cl_GrayishBlue'>{createdAt}</p>
             {username === currentUsername ? (
-              <div className='hidden md:flex items-center gap-x-4 md:absolute md:-right-1 md:top-1  md:gap-x-7'>
+              <div className='hidden md:flex items-center gap-x-4  md:gap-x-7 absolute -right-1 top-1'>
                 <button
                   onClick={() => {
+                    setDeleteComment({ commentID, replyID: id })
                     setShowModal(true)
-                    setDeleteComment({ commentID: id, replyID: -1 })
                   }}
-                  className='flex items-center gap-2 font-medium text-cl_SoftRed '
+                  className='flex items-center gap-2 font-medium text-cl_SoftRed'
                 >
                   <DeleteIcon />
                   Delete
@@ -89,7 +89,7 @@ const Reply = ({
                   onClick={() => {
                     setIsEdit(true)
                     setEditReplyID(id)
-                    setUpdateComment({ commentID: id, replyID: -1 })
+                    setUpdateComment({ commentID: commentID, replyID: id })
                   }}
                   className='flex items-center gap-2 font-medium text-cl_Moderateblue'
                 >

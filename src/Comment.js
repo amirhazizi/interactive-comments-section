@@ -74,7 +74,7 @@ const Comment = ({
             )}
             <p className='text-cl_GrayishBlue'>{createdAt}</p>
             {username === currentUsername ? (
-              <div className='hidden md:flex items-center gap-x-4 md:gap-x-7 md:absolute md:-right-1 md:top-1  '>
+              <div className='invisible md:visible flex items-center gap-x-4 md:gap-x-7 md:absolute md:-right-1 md:top-1'>
                 <button
                   onClick={() => {
                     setShowModal(true)
@@ -119,8 +119,8 @@ const Comment = ({
                 placeholder='Add a comment...'
                 onChange={(e) => setEditComment(e.target.value)}
               ></textarea>
-              <div className='flex justify-between md:hidden'>
-                <div className='flex space-x-4 rounded-lg bg-cl_Verylightgray w-fit p-3 py-2 text-cl_Lightgrayishblue items-center'>
+              <div className='flex justify-between'>
+                <div className='flex space-x-4 rounded-lg bg-cl_Verylightgray w-fit p-3 py-2 text-cl_Lightgrayishblue items-center  md:hidden'>
                   <button
                     onClick={() => {
                       updateScore(score + 1, id)
@@ -140,7 +140,7 @@ const Comment = ({
                   </button>
                 </div>
                 <button
-                  className='uppercase p-3  w-28 rounded-lg bg-cl_Moderateblue text-cl_White'
+                  className='uppercase p-3  w-28 rounded-lg bg-cl_Moderateblue text-cl_White md:ml-auto'
                   type='submit'
                 >
                   update
